@@ -30,11 +30,32 @@ You should have received a copy of the GNU Lesser General Public
 #ifndef RELEASE_H
 #define RELEASE_H
 
-#define MSLVERSION "1.2.3.1"
-#define MSLDATE "December 20, 2014"
+#define MSLVERSION "1.2.3.8"
+#define MSLDATE "January 29, 2015"
 
 /*
 HISTORY:
+1.2.3.8    January 29, 2015    grigoryan
+               WARNING!  Files submitted without building tree or running tests.
+                'myProgs/gevorg/confind.cpp' -Updated confind program--now it also calculates the degree of crowdedness.
+                'myProgs/gevorg/confind.cpp' -Updated confind program--now it also calculates the degree of crowdedness.
+1.2.3.7    January 29, 2015    grigoryan
+                'myProgs/gevorg/confind.cpp' -Updated confind program--now it also calculates the degree of crowdedness.
+                'myProgs/gevorg/confind.cpp' -Updated confind program--now it also calculates the degree of crowdedness.
+1.2.3.6    January 29, 2015    grigoryan
+                'myProgs/gevorg/confind.cpp' -Added a program, confind, which characterizes the contacts between residues of provided
+                 structures in terms of their contact degree. Note, rather than specific contacts within the given structure, the
+                 program finds which residue pairs are poised to make potential contacts given their backbone geometries and orientations.
+                
+1.2.3.5    January 09, 2015    jedonald
+                'programs/getSurroundingResidues.h' -Add option to search only by side chains
+1.2.3.4    January 09, 2015    jedonald
+                'programs/getSurroundingResidues.h' -Add option to search only by side chains
+1.2.3.3    January 09, 2015    jedonald
+                'programs/getSurroundingResidues.cpp' -Add option to search only by side chains
+1.2.3.2    January 09, 2015    jedonald
+                'myProgs/jedonald/jedonald.mk' -Update personal makefile
+                'myProgs/jedonald/findSaltBridges.cpp' -Short program to print out salt bridge residue numbers
 1.2.3.1    December 20, 2014    sabareeshs
                WARNING!  Files submitted without building tree or running tests.
                 'programs/repackSideChains.cpp', 'programs/repackSideChains.h', 'src/RotamerLibrary.cpp', 'src/SystemRotamerLoader.cpp'
