@@ -31,6 +31,54 @@ You should have received a copy of the GNU Lesser General Public
 #ifndef POLYMERSEQUENCE_H
 #define POLYMERSEQUENCE_H
 
+/****************************************************************************
+ *  INPUT STRING FORMAT
+ *
+ *  - Each chain is separated by a chainid plus semicolon (A:)
+ *  - If the chain-id is not given, it is defaulted in alphabetical
+ *    order (i.e. if it is the 3rd chain ":" -> "C:", even if D: was given
+ *    before)
+ *  - Lines do not matter, multi-line or single line is parsed the same
+ *  - Residue numbers are given in {34} (with insertion code {34A}
+ *  - Multiple identities at the same position are given within [ILE VAL THR]
+ *
+ *  EXAMPLES:
+ *   A: ALA VAL ILE B: {4}TYR VAL LEU C: PRO TYR {7}VAL SER D: ALA LEU {2A}ILE SER VAL
+ *   
+ *   corresponds to
+ *   chain
+ *   | resnum
+ *   | |icode
+ *   | || resname
+ *   | || |
+ *   - -- ---
+ *   A 1  ALA
+ *   A 2  VAL
+ *   A 3  ILE
+ *   B 4  TYR
+ *   B 5  VAL
+ *   B 6  LEU
+ *   C 1  PRO
+ *   C 2  TYR
+ *   C 7  VAL
+ *   C 8  SER
+ *   D 1  ALA
+ *   D 2  LEU
+ *   D 2A ILE
+ *   D 3  SER
+ *   D 4  VAL
+ * 
+ *   Multiple identites 
+ *   A: ALA [VAL LEU TRP] ILE B: {4}[TYR SER ASP] VAL LEU
+ *
+ *   A 1  ALA
+ *   A 2  VAL LEU TRP
+ *   A 3  ILE
+ *   B 4  TYR SER ASP
+ *   B 5  VAL
+ *   B 6  LEU
+ * 
+ ****************************************************************************/
 
 
 // MSL INCLUDES

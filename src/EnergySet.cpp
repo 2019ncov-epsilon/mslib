@@ -181,7 +181,7 @@ double EnergySet::calculateEnergy(string _selection1, string _selection2, bool _
 		double tmpTermTotal = 0.0;
 		unsigned int tmpTermCounter = 0;
 		for (vector<Interaction*>::const_iterator l=k->second.begin(); l!=k->second.end(); l++) {
-			// for all the interactions
+		       	// for all the interactions
 			if ((!_activeOnly || (*l)->isActive()) && (_noSelect || (*l)->isSelected(_selection1, _selection2)) && (!checkForCoordinates_flag || (*l)->atomsHaveCoordinates())) {
 				tmpTermCounter++;
 				tmpTermTotal += (*l)->getEnergy(); 
@@ -512,6 +512,37 @@ void EnergySet::deleteInteractionsWithAtoms(AtomPointerVector & _atomVec, string
 					break;
 				}
 			}
+		}
+	}
+	energyTermsSubsets.clear();
+}
+
+void EnergySet::deleteInteractionsWithinSelection(string _atomSelection) {
+	/************************************************************
+	 *  This deletes an interaction if all the atoms belong to a selection
+	 ************************************************************/
+	for (map<string, vector<Interaction*> >::iterator k=energyTerms.begin(); k!=energyTerms.end(); k++) {
+		for (vector<Interaction*>::iterator l=k->second.begin(); l!=k->second.end(); l++) {
+			std::vector<Atom*> & atoms = (*l)->getAtomPointers();
+			bool allSelected = true;
+		//	cout << "UUU ";
+			for (AtomPointerVector::iterator m=atoms.begin(); m!=atoms.end(); m++) {
+			//	cout << **m;
+				if (!(*m)->getSelectionFlag(_atomSelection)) {
+				//	cout << "[N]";
+					allSelected = false;
+					break;
+			//	} else {
+			//		cout << "[Y]";
+				}
+			}
+			if (allSelected) {
+				delete *l;
+				k->second.erase(l);
+				l--;
+		//		cout << " deleted";
+			}
+		//	cout << endl;
 		}
 	}
 	energyTermsSubsets.clear();

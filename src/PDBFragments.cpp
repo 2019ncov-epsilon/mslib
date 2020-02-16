@@ -1342,7 +1342,8 @@ int PDBFragments::searchForMatchingFragmentsStems(System &_sys, vector<string> &
 
 				if (illegalQuads > 0){
 				  successful = false;
-			  	  exit(0);
+			  	  //exit(0);
+				  continue;	//SGFC Bug
 				}
 
 				lastResults.push_back(new AtomContainer(tmpChain.getAtomPointers()));

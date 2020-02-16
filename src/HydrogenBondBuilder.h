@@ -59,13 +59,8 @@ namespace MSL {
 
 			void printParameters();
 
-			/**************************************************
-			 * Add one or more new identities to a position,
-			 * if a series of backbone atoms are specified
-			 * (_bbAtoms) then the coordinates are passed to
-			 * the atoms with the same name in the new residues
-			 * to preserve the position of the backbone
-			 **************************************************/
+			bool fail() const; // return false if reading toppar failed
+
 			
 		private:
 			void setup();
@@ -87,11 +82,14 @@ namespace MSL {
 
 			std::map<std::string,std::vector<double> > acceptorData; // [ASP O ] [1 120 0 180]
 
+			bool fail_flag;
+
 	};
 	inline void HydrogenBondBuilder::setSystem(System & _system) {
 		reset();
 		pSystem = &_system;
 	}
+inline bool HydrogenBondBuilder::fail() const { return fail_flag;}
 }
 
 #endif

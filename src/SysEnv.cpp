@@ -112,7 +112,7 @@ bool SysEnv::addEnvVariable(string &_var){
 	return true;
 }
 
-bool SysEnv::isDefined(string &_var){
+bool SysEnv::isDefined(const string &_var){
 	envIt = env.find(_var);
 	char *envVar = NULL;
 	envVar = getenv(_var.c_str());

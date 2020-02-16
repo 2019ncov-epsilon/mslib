@@ -330,13 +330,15 @@ double CharmmEnergy::EEF1Ener(double _d, double _V_i, double _Gfree_i, double _S
 	double d2 = _d * _d;
 	double fV_i = 0.0;
 	double fV_j = 0.0;
-	
+	//Yudong's changes
 	if (_Sigw_i != 0.0 && _Gfree_i != 0.0 && _V_j != 0.0) {
-		double x2_i = -pow((_d - _rmin_i) / _Sigw_i, 2.0);
+                double tmp = (_d - _rmin_i) / _Sigw_i; 
+		double x2_i = -(tmp * tmp);
 		fV_i = eef1_constant * _Gfree_i * exp(x2_i) * _V_j / (_Sigw_i * d2);
 	}
 	if (_Sigw_j != 0.0 && _Gfree_j != 0.0 && _V_i != 0.0) {
-		double x2_j = -pow((_d - _rmin_j) / _Sigw_j, 2.0);
+                double tmp = (_d - _rmin_j) / _Sigw_j;
+		double x2_j = -(tmp * tmp);
 		fV_j = eef1_constant * _Gfree_j * exp(x2_j) * _V_i / (_Sigw_j * d2);
 	}
 	return -fV_i - fV_j;

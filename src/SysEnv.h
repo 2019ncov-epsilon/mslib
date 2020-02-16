@@ -54,7 +54,7 @@ namespace MSL {
 
 			bool addEnvVariable(std::string &_var);
 			bool setEnv(std::string &_var,std::string &_value);
-			bool isDefined(std::string &_var);
+			bool isDefined(const std::string &_var);
 			std::string getEnv(const std::string &_var);
 			
 		private:

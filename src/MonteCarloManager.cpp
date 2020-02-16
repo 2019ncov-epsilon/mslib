@@ -174,6 +174,7 @@ bool MonteCarloManager::accept(double _energy, double _factor) {
 			lastE = _energy;
 			accept_flag = true;
 		}
+
 	}
 
 	/*

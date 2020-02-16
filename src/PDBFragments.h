@@ -35,6 +35,11 @@ You should have received a copy of the GNU Lesser General Public
 #include "AtomPointerVector.h"
 #include "AtomContainer.h"
 #include "System.h"
+// BOOST Includes
+#ifdef __BOOST__
+#include <boost/regex.hpp>
+#endif
+
 
 namespace MSL { 
 class PDBFragments{

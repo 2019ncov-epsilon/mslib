@@ -1050,6 +1050,7 @@ bool CharmmSystemBuilder::buildSystem(const PolymerSequence & _sequence) {
 				/************************************************************
 				 *  ADD THE TOPOLOGY RESIDUE
 				 ************************************************************/
+                                
 				vector<string> split = MslTools::tokenize(*m, "-");
 				// dangerously assuming that the initial string isn't blank!
 				if (pTopReader->residueExists(split[0])) {

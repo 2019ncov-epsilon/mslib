@@ -85,6 +85,16 @@ namespace MSL {
 
 		double planeAngle(const CartesianPoint & _p1, const CartesianPoint & _p2, const CartesianPoint & _p3, const CartesianPoint & _q1, const CartesianPoint & _q2, const CartesianPoint & _q3);
 		CartesianPoint normalToPlane(const CartesianPoint & _p1, const CartesianPoint & _p2, const CartesianPoint & _p3);
+inline double distance(const CartesianPoint & _firstCartesianPoint, const CartesianPoint & _secondCartesianPoint)
+{
+	CartesianPoint difference = _firstCartesianPoint - _secondCartesianPoint;
+	return sqrt(difference * difference);
+}
+inline double distance2(const CartesianPoint & _firstCartesianPoint, const CartesianPoint & _secondCartesianPoint)
+{
+	CartesianPoint difference = _firstCartesianPoint - _secondCartesianPoint;
+	return difference * difference;
+}
      }
 }
 

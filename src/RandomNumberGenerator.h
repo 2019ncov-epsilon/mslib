@@ -74,12 +74,10 @@ class RandomNumberGenerator {
 		unsigned long int    getRandomInt(); // between 0 and RAND_MAX
 		unsigned long int    getRandomInt(unsigned long int _upperLimit); // between 0 and _upperLimit (included by default)
 		long int             getRandomInt(long int _lowerLimit, long int _upperLimit); // between _lowerLimit and _upperLimit (both included by default)
-		//get a vector of randomly ordered integers SGFC
-		std::vector <unsigned int> getRandomOrder (uint _size);			//returns vector of integers between 0 and _size-1 arranged in a random order
-		std::vector <unsigned int> getRandomOrder (uint _start, uint _end);	//start and end inclusive
-
-		
 		unsigned long int    getRandomIntLimit(int _upperLimit); // DEPRECATED
+
+		std::vector <unsigned int> getRandomOrder (uint _size);			//returns vector between 0 and _size-1 numbered in a random order
+		std::vector <unsigned int> getRandomOrder (uint _start, uint _end);
 
 
 		/* The following takes a vector of probabilities and return a biased
