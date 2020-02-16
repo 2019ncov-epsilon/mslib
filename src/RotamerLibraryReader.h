@@ -58,9 +58,7 @@ class RotamerLibraryReader : public Reader {
 		RotamerLibraryReader(const RotamerLibraryReader & _reader);
 		virtual ~RotamerLibraryReader();
 
-		// call read for regular library and readBebl for the BEBL
 		bool read();
-		bool readBebl();
 
 		void setRotamerLibrary(RotamerLibrary * _rotlib);
 

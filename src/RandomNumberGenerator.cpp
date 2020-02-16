@@ -226,10 +226,16 @@ long int RandomNumberGenerator::getRandomInt(long int _lowerLimit, long int _upp
 #endif
 }
 
+
+
 unsigned long int RandomNumberGenerator::getRandomIntLimit(int _upperLimit){
 	cerr << "WARNING: deprecated function unsigned long int RandomNumberGenerator::getRandomIntLimit(int _upperLimit)" << endl;
 	return getRandomInt(_upperLimit);
 }
+
+
+
+//SGFC ADDITION getRandomOrder
 
 std::vector <unsigned int> RandomNumberGenerator::getRandomOrder (uint _size) {
 	unsigned int start = 0;
@@ -238,19 +244,21 @@ std::vector <unsigned int> RandomNumberGenerator::getRandomOrder (uint _size) {
 }
 
 std::vector <unsigned int> RandomNumberGenerator::getRandomOrder (uint _start, uint _end) {
-	unsigned int size = (_end - _start) + 1;
-	std::vector <unsigned int> ordered (size);
-	std::vector <unsigned int> random (size);
+	std::vector <unsigned int> ordered;
+	std::vector <unsigned int> random;
 	for (unsigned int i = _start; i <= _end; i++) {
-		ordered[i] = i;
+		ordered.push_back (i);
 	}
-	for (unsigned int j = 0; j<size; j++) {
-		unsigned int randInt = getRandomDouble() * ordered.size();
-		random[j] = ordered[randInt];
+	while (!ordered.empty()) {
+		int randInt= getRandomDouble()* ordered.size();
+		random.push_back (ordered[randInt]);
 		ordered.erase(ordered.begin() + randInt);
 	}
 	return random;
 }
+
+
+
 
 void RandomNumberGenerator::printAvailableRNGAlgorithms(){
 

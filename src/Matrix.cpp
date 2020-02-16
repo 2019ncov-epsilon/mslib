@@ -87,13 +87,7 @@ Matrix::Matrix(const Matrix  & _m) {
 Matrix::~Matrix() {
 }
 
-vector<double> & Matrix::operator[](size_t n) {
-	if (n > rows){
-		cerr << "ERROR 1942 Matix::operator[] n is larger than number of rows. n = "<<n<<"; rows = "<<rows<<endl;
-		exit(1942);
-	}
-	return matrix[n];
-}
+
 
 void Matrix::initialize() {
 	initialize(rows, cols, 0.0);
@@ -111,10 +105,6 @@ void Matrix::initialize(unsigned int _rows, unsigned int _cols, double _val) {
 		matrix.push_back(vector<double>(cols, _val));
 	}
 	archiveType = "binary";
-}
-
-double Matrix::getElement(unsigned int _row, unsigned int _col) const {
-	return matrix[_row][_col];
 }
 
 vector<double> Matrix::getRow(unsigned int _row) const {

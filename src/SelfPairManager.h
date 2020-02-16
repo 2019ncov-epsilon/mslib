@@ -58,7 +58,6 @@ class SelfPairManager {
 		virtual ~SelfPairManager();
 
 		void calculateEnergies(); // calls calculateFixedEnergies(),calculateSelfEnergies(), calculatePairEnergies();
-		void recalculateNonSavedEnergies(std::vector<std::vector<std::vector<std::vector<bool> > > > savedPairEnergies);  // calls calculateFixedEnergies(),calculateSelfEnergies(), recalculateNonSavedPairEnergies();
 
 		void setRandomNumberGenerator(RandomNumberGenerator * _pExternalRNG);
 		RandomNumberGenerator * getRandomNumberGenerator() const;
@@ -117,9 +116,11 @@ class SelfPairManager {
 		void setVerbose(bool _toggle);
 
 		void runOptimizer();
-		//SGFC runGreedyOptimizer can accept a mask to exclude particular rotamers
+		//SGFC New runGreedyOptimizer using a mask
 		void runGreedyOptimizer(int _cycles, std::vector< std::vector<bool> > _mask);
 		void runGreedyOptimizer(int _cycles) ;
+		
+
 		std::vector<unsigned int> runLP(bool _runMIP = false); // Run the LP/MIP formulation
 
 		std::vector<double> getMinBound();
@@ -149,7 +150,6 @@ class SelfPairManager {
 		void calculateFixedEnergies();
 		void calculateSelfEnergies();
 		void calculatePairEnergies();
-		void recalculateNonSavedPairEnergies(std::vector<std::vector<std::vector<std::vector<bool> > > > savedPairEnergies);
 
 		double runDeadEndElimination(); // returns the finalCombinations
 		void runEnumeration();
@@ -212,6 +212,7 @@ class SelfPairManager {
 
 		std::vector<std::vector<unsigned int> > aliveRotamers;
 		std::vector<std::vector<bool> > aliveMask;
+
 		std::vector<unsigned int> mostProbableSCMFstate;
 		std::vector<unsigned int> bestSCMFBiasedMCstate;
 		std::vector<unsigned int> bestUnbiasedMCstate;

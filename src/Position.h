@@ -312,9 +312,7 @@ class Position {
 
 		bool getHidden(const Residue* _pRes) const; // is the residue hidden?
 
-		// returns values in degrees [-180,180), doubleMax if not found
-		double getPhi();
-		double getPsi();
+
 
 	private:
 

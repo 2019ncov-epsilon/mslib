@@ -45,9 +45,9 @@ System::System(const Chain & _chain) {
 	addChain(_chain);
 }
 
-System::System(const AtomPointerVector & _atoms, bool _keepOrder) {
+System::System(const AtomPointerVector & _atoms) {
 	setup();
-	addAtoms(_atoms, _keepOrder);
+	addAtoms(_atoms);
 }
 
 System::System(const System & _system) {
@@ -318,7 +318,7 @@ void System::addAtom(string _atomId, double _x, double _y, double _z, string _el
 }
 
 
-void System::addAtoms(const AtomPointerVector & _atoms, bool _keepOrder) {
+void System::addAtoms(const AtomPointerVector & _atoms) {
 	/***********************************************
 	 *  This function splits the AtomPointerVector in a number
 	 *  of AtomPointerVector objects by chain ID and then calls
@@ -374,7 +374,7 @@ void System::addAtoms(const AtomPointerVector & _atoms, bool _keepOrder) {
 			 *  A chain with the chainId already EXISTS, add
 			 *  the atoms to it
 			 ***********************************************/
-			(*foundChain).second->addAtoms(dividedInChains[chainOrder[i]], _keepOrder);
+			(*foundChain).second->addAtoms(dividedInChains[chainOrder[i]]);
 		} else {
 			/***********************************************
 			 *  A chain with the chainId DOES NOT EXIST, 
@@ -384,7 +384,7 @@ void System::addAtoms(const AtomPointerVector & _atoms, bool _keepOrder) {
 			chains.push_back(new Chain(chainOrder[i]));
 			chains.back()->setParentSystem(this);
 			chainMap[chains.back()->getChainId()] = chains.back();
-			chains.back()->addAtoms(dividedInChains[chainOrder[i]], _keepOrder);
+			chains.back()->addAtoms(dividedInChains[chainOrder[i]]);
 		}
 	}
 
@@ -680,6 +680,72 @@ void System::setLinkedPositions(vector<vector<string> > &_linkedPositions){
 		setLinkedPositions(_linkedPositions[v]);
 	}
 }
+
+//SGFC Create a mask that limits energy minimization algorithms to the current active residues
+std::vector< std::vector<bool> > System::getResidueMask () {
+	updateVariablePositions();
+	std::vector< std::vector<bool> > mask(masterPositions.size());
+	saveAltCoor("start");
+
+	string sequence;
+	for (uint j = 0; j < positionSize(); j++) {
+		string threeLetterRes = getPosition(j).getCurrentIdentity().getResidueName();
+		string oneLetterRes = MslTools::getOneLetterCode(threeLetterRes);
+		sequence = sequence + oneLetterRes;
+	}
+	cout << "Start: " << sequence << endl;
+	//for each position in the system
+	for (unsigned int i = 0; i < masterPositions.size(); i++) {
+		Position &pos = getPosition(masterPositions[i]);
+		string posID = pos.getPositionId();
+		string identity = pos.getCurrentIdentity().getIdentityId();
+		//temporary fix until saveAltCoor is worked out--you can set a particular identity using a residue name
+		string resName = pos.getCurrentIdentity().getResidueName();
+		cout << "Identity at position " << posID << ": " << identity << endl;
+
+		//set up the mask for this particular position
+		mask[i] = std::vector<bool> (pos.getTotalNumberOfRotamers());
+
+
+
+		//for each rotamer
+		for (unsigned int j = 0; j < mask[i].size(); j++) {
+			//for some reason sys.setActiveRotamer(i) isn't working but when I get the position first it works...
+			pos.setActiveRotamer(j);
+			cout << pos.getCurrentIdentity().getIdentityId() << "~" << pos.getRotamerId() << endl;
+			if (identity == pos.getCurrentIdentity().getIdentityId()) {
+				mask[i][j] = true;
+			} else {
+				mask[i][j] = false;
+			}
+		}
+		//temporary fix until saveAltCoor is worked out--reset to original identity, if not original rotamer...
+		if(!pos.setActiveIdentity(resName)) {
+			cerr << "ERROR: DID NOT RESET THE IDENTITY" << endl;
+		}
+
+	}
+	/*
+	if(!applySavedCoor("start")) {
+		cerr << "ERROR: DID NOT APPLY SAVED COOR" << endl;
+	}
+	*/
+	sequence = "";
+	for (uint j = 0; j < positionSize(); j++) {
+		string threeLetterRes = getPosition(j).getCurrentIdentity().getResidueName();
+		string oneLetterRes = MslTools::getOneLetterCode(threeLetterRes);
+		sequence = sequence + oneLetterRes;
+	}
+	cout << "End: " << sequence << endl;
+
+	clearSavedCoor("start");
+	return mask;	
+
+
+}
+
+
+
 /*
 void System::setLinkedPositions(vector<vector<string> > &_linkedPositions){
 

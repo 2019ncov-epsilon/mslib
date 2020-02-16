@@ -50,7 +50,7 @@ class System {
 		System();
 		System(const Chain & _chain);
 		System(const std::vector<Chain> & _chains);
-		System(const AtomPointerVector & _atoms, bool _keepOrder=false);
+		System(const AtomPointerVector & _atoms);
 		System(const System & _system);
 		~System();
 
@@ -65,7 +65,7 @@ class System {
 		void addAtom(const Atom & _atom);
 		void addAtom(std::string _atomId, const CartesianPoint & _coor=CartesianPoint(0.0, 0.0, 0.0), std::string _element="");
 		void addAtom(std::string _atomId, double _x, double _y, double _z, std::string _element="");
-		void addAtoms(const AtomPointerVector & _atoms, bool _keepOrder=false);
+		void addAtoms(const AtomPointerVector & _atoms);
 		
 		EnergySet* getEnergySet();
 		/* Calculate the energies */
@@ -232,7 +232,7 @@ class System {
 		void wipeAllCoordinates(); // flag all active and inactive atoms as not having cartesian coordinates
 
 		/* I/O */
-		bool readPdb(std::string _filename, bool _keepOrder=false); // add atoms or alt coor
+		bool readPdb(std::string _filename); // add atoms or alt coor
 		bool writePdb(std::string _filename, bool _writeAllModels=false);
 		bool writePdb(std::string _filename, std::string _remark);
 		bool writeMultiplePdbs(std::string _filename_prefix,double _rmsd=-1.0);
@@ -269,6 +269,9 @@ class System {
 		void setLinkedPositions(std::vector<std::string> &_linkedPositions); // a set of linked pos
 		//  Multiple links at the same time, takes a vector of vector of position IDs 
 		void setLinkedPositions(std::vector<std::vector<std::string> > &_linkedPositions); 
+
+		//SGFC Create a mask that limits energy minimization algorithms to the current active residues
+		std::vector< std::vector<bool> > getResidueMask ();
 
 
 		std::string toString() const;
@@ -642,7 +645,7 @@ inline void System::purgeIcTable() {
 		}
 	}
 }
-inline bool System::readPdb(std::string _filename, bool _keepOrder) {reset(); if (!pdbReader->open(_filename) || !pdbReader->read()) return false; addAtoms(pdbReader->getAtomPointers(), _keepOrder); numberOfModels = pdbReader->getNumberOfModels(); return true;}
+inline bool System::readPdb(std::string _filename) {reset(); if (!pdbReader->open(_filename) || !pdbReader->read()) return false; addAtoms(pdbReader->getAtomPointers()); numberOfModels = pdbReader->getNumberOfModels(); return true;}
 inline bool System::writePdb(std::string _filename, std::string _remark) {pdbWriter->clearRemarks(); pdbWriter->addRemark(_remark);return writePdb(_filename);}
 
 inline unsigned int System::getPositionIndex(std::string _chain, int _resNum, std::string _icode) {

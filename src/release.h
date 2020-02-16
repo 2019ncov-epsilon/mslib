@@ -30,87 +30,11 @@ You should have received a copy of the GNU Lesser General Public
 #ifndef RELEASE_H
 #define RELEASE_H
 
-#define MSLVERSION "1.2.3.8"
-#define MSLDATE "January 29, 2015"
+#define MSLVERSION "1.2.1.6"
+#define MSLDATE "October 25, 2013"
 
 /*
 HISTORY:
-1.2.3.8    January 29, 2015    grigoryan
-               WARNING!  Files submitted without building tree or running tests.
-                'myProgs/gevorg/confind.cpp' -Updated confind program--now it also calculates the degree of crowdedness.
-                'myProgs/gevorg/confind.cpp' -Updated confind program--now it also calculates the degree of crowdedness.
-1.2.3.7    January 29, 2015    grigoryan
-                'myProgs/gevorg/confind.cpp' -Updated confind program--now it also calculates the degree of crowdedness.
-                'myProgs/gevorg/confind.cpp' -Updated confind program--now it also calculates the degree of crowdedness.
-1.2.3.6    January 29, 2015    grigoryan
-                'myProgs/gevorg/confind.cpp' -Added a program, confind, which characterizes the contacts between residues of provided
-                 structures in terms of their contact degree. Note, rather than specific contacts within the given structure, the
-                 program finds which residue pairs are poised to make potential contacts given their backbone geometries and orientations.
-                
-1.2.3.5    January 09, 2015    jedonald
-                'programs/getSurroundingResidues.h' -Add option to search only by side chains
-1.2.3.4    January 09, 2015    jedonald
-                'programs/getSurroundingResidues.h' -Add option to search only by side chains
-1.2.3.3    January 09, 2015    jedonald
-                'programs/getSurroundingResidues.cpp' -Add option to search only by side chains
-1.2.3.2    January 09, 2015    jedonald
-                'myProgs/jedonald/jedonald.mk' -Update personal makefile
-                'myProgs/jedonald/findSaltBridges.cpp' -Short program to print out salt bridge residue numbers
-1.2.3.1    December 20, 2014    sabareeshs
-               WARNING!  Files submitted without building tree or running tests.
-                'programs/repackSideChains.cpp', 'programs/repackSideChains.h', 'src/RotamerLibrary.cpp', 'src/SystemRotamerLoader.cpp'
-                 -Bug fixes and support for BEBL in repackSideChains program
-1.2.3.0    December 14, 2014    sabareeshs
-               WARNING!  Files submitted without building tree or running tests.
-                'src/Position.cpp', 'src/Position.h' -Added getPhi and getPsi methods
-                'src/RotamerLibrary.cpp', 'src/RotamerLibrary.h', 'src/RotamerLibraryReader.cpp', 'src/RotamerLibraryReader.h',
-                 'src/RotamerLibraryWriter.cpp', 'src/RotamerLibraryWriter.h', 'src/SystemRotamerLoader.cpp', 'src/SystemRotamerLoader.h'
-                 -Added support for bebl
-                'tests/sandbox/testBebl.cpp' -Added test to check loadRotamers functionality using bebl
-                'Makefile' -Added testBebl
-                'library/BEBL_11-2014.txt' -The backbone dependent energy-based library - initial version
-1.2.2.7    November 14, 2014    grigoryan
-                'src/CartesianPoint.h', 'src/OptimalRMSDCalculator.cpp', 'src/OptimalRMSDCalculator.h' -Added a uniary minus for
-                 CartesianPoint and made some minor improvements in OptimalRMSDCalculator (do not affect prior usage).
-                'src/CartesianPoint.h', 'src/OptimalRMSDCalculator.cpp', 'src/OptimalRMSDCalculator.h' -Added a uniary minus for
-                 CartesianPoint and made some minor improvements in OptimalRMSDCalculator (do not affect prior usage).
-1.2.2.6    November 14, 2014    grigoryan
-                'src/CartesianPoint.h', 'src/OptimalRMSDCalculator.cpp', 'src/OptimalRMSDCalculator.h' -Added a uniary minus for
-                 CartesianPoint and made some minor improvements in OptimalRMSDCalculator (do not affect prior usage).
-1.2.2.5    August 16, 2014    grigoryan
-                'src/Chain.cpp', 'src/Chain.h', 'src/PDBReader.cpp', 'src/System.cpp', 'src/System.h' -Added the ability to preserve
-                 residue order (even if residue ID's are out of order) in building a System. Also, changed the behavior of PDBReader,
-                 so that if the chain ID is empty, it uses the segment ID as the chain ID for the purpose of reading/parsing and
-                 deciding which residues go into which chain. Upon writing, of course, it is just the first character of segment
-                 ID that becomes the chain ID in the output file. This behavior is very useful for reading in very large PDB files
-                 where the nuber of unique chains exceeds the number of chars.
-                'src/Chain.cpp', 'src/Chain.h', 'src/PDBReader.cpp', 'src/System.cpp', 'src/System.h' -Added the ability to preserve
-                 residue order (even if residue ID's are out of order) in building a System. Also, changed the behavior of PDBReader,
-                 so that if the chain ID is empty, it uses the segment ID as the chain ID for the purpose of reading/parsing and
-                 deciding which residues go into which chain. Upon writing, of course, it is just the first character of segment
-                 ID that becomes the chain ID in the output file. This behavior is very useful for reading in very large PDB files
-                 where the nuber of unique chains exceeds the number of chars.
-1.2.2.4    May 29, 2014    bkmueller
-                'src/SelfPairManager.cpp', 'src/SelfPairManager.h' -Added recalculateNonSavedEnergies which allows the user to
-                 supply a mask which will not recalculate the given pair energies, useful for skipping intramolecular pair energies
-                
-1.2.2.3    May 29, 2014    sgfc
-                'src/SelfPairManager.cpp' -Added
-1.2.2.2    May 26, 2014    sgfc
-                './src/SelfPairManager.h' -Added a mask to runGreedyOptimizer to exclude particular rotamers/identities from analysis
-                
-1.2.2.1    February 18, 2014    asenes
-               WARNING!  Files submitted without building tree or running tests.
-                'RELEASE_NOTES.txt', 'var/header.txt' -Updated year in copyright statement to 2014
-1.2.2.0    February 18, 2014    scraven
-                'src/RandomNumberGenerator.cpp', 'src/RandomNumberGenerator.h' -added getRandomOrder function to return vector
-                 of randomly ordered unsigned integers
-1.2.1.8    February 11, 2014    asenes
-               WARNING!  Files submitted without building tree or running tests.
-                'README.txt' -Updated contributor list and year for copyright
-1.2.1.7    February 10, 2014    sgfc
-                'src/SystemRotamerLoader.cpp' -Fixed bug in function loadRotamers(string _positionId, string _resName, string _levelName,
-                 string _rotLib, bool _keepOldRotamers) where _resName and _rotLib were swapped
 1.2.1.6    October 25, 2013    asenes
                 'programs/alignMolecules.cpp' -Added option to write all models for a multi-model PDB input file (the default writes
                  only 1 model)
