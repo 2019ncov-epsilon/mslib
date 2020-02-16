@@ -46,6 +46,7 @@ class Transforms {
 		Transforms();
 		Transforms(const Transforms & _transform);
 		~Transforms();
+
 		/***************************************************************************************
 		 *
 		 *  TRANSFORMATIONS APPLIED TO A SINGLE ATOM
@@ -53,46 +54,13 @@ class Transforms {
 		 ***************************************************************************************/
 		// translation
 		void translate(Atom & _atom, const CartesianPoint & _p);
-		void Xtranslate(Atom & _atom, const double & _x);
-		void Ytranslate(Atom & _atom, const double & _y);
-		void Ztranslate(Atom & _atom, const double & _z);
 
 		// rotation
 		void Xrotate(Atom & _atom, double _degrees);
 		void Yrotate(Atom & _atom, double _degrees);
 		void Zrotate(Atom & _atom, double _degrees);
-		void rotate(Atom & _atom, double _degrees, const CartesianPoint & _axisFromRotCenter, const CartesianPoint & _rotCenter);
-		void rotate(Atom & _atom, double _degrees, const CartesianPoint & _axis);
-		void rotate(Atom & _atom, const Matrix & _rotMatrix, const CartesianPoint & _rotCenter);
-		void rotate(Atom & _atom, const Matrix & _rotMatrix);
-		// quicker routines, just invert the sign of the relevant coordinates
-		void Xrotate180(Atom & _atom); // invert sign of Y and Z
-		void Yrotate180(Atom & _atom); // invert sign of X and Z
-		void Zrotate180(Atom & _atom); // invert sign of X and Y
-
-		/***************************************************************************************
-		 *
-		 *  TRANSFORMATIONS RECORDED TO HISTORY AND NOT APPLIED (to be used later with applyHistory
-		 *  functions
-		 *
-		 ***************************************************************************************/
-		// translation
-		void recordTranslate(const CartesianPoint & _p);
-		void recordXtranslate(const double & _x);
-		void recordYtranslate(const double & _y);
-		void recordZtranslate(const double & _z);
-
-		// rotation
-		void recordXrotate(double _degrees);
-		void recordYrotate(double _degrees);
-		void recordZrotate(double _degrees);
-		void recordRotate(double _degrees, const CartesianPoint & _axisFromRotCenter, const CartesianPoint & _rotCenter=CartesianPoint(0.0, 0.0, 0.0));
-		void recordRotate(const Matrix & _rotMatrix, const CartesianPoint & _rotCenter);
-		void recordRotate(const Matrix & _rotMatrix);
-		// quicker routines, just invert the sign of the relevant coordinates
-		void recordXrotate180(); // invert sign of Y and Z
-		void recordYrotate180(); // invert sign of X and Z
-		void recordZrotate180(); // invert sign of X and Y
+		void rotate(Atom & _atom, double _degrees, const CartesianPoint & _axisFromRotCenter, const CartesianPoint & _rotCenter=CartesianPoint(0.0, 0.0, 0.0));
+		void rotate(Atom & _atom, const Matrix & _rotMatrix, const CartesianPoint & _rotCenter=CartesianPoint(0.0, 0.0, 0.0));
 
 		/*****************************************************
 		 *  Align rotates the atom so that it points in the
@@ -118,21 +86,12 @@ class Transforms {
 		 *
 		 ***************************************************************************************/
 		void translate(AtomPointerVector & _atoms, CartesianPoint _p);
-		void Xtranslate(AtomPointerVector & _atoms, const double & _x);
-		void Ytranslate(AtomPointerVector & _atoms, const double & _y);
-		void Ztranslate(AtomPointerVector & _atoms, const double & _z);
-
 		void Xrotate(AtomPointerVector & _atoms, double _degrees);
 		void Yrotate(AtomPointerVector & _atoms, double _degrees);
 		void Zrotate(AtomPointerVector & _atoms, double _degrees);
-		void rotate(AtomPointerVector & _atoms, double _degrees, const CartesianPoint & _axisFromRotCenter, const CartesianPoint & _rotCenter);
-		void rotate(AtomPointerVector & _atoms, double _degrees, const CartesianPoint & _axis);
-		void rotate(AtomPointerVector & _atoms, const Matrix & _rotMatrix, const CartesianPoint & _rotCenter);
-		void rotate(AtomPointerVector & _atoms, const Matrix & _rotMatrix);
-		void Xrotate180(AtomPointerVector & _atoms);
-		void Yrotate180(AtomPointerVector & _atoms);
-		void Zrotate180(AtomPointerVector & _atoms);
-	
+		void rotate(AtomPointerVector & _atoms, double _degrees, const CartesianPoint & _axisFromRotCenter, const CartesianPoint & _rotCenter=CartesianPoint(0.0, 0.0, 0.0));
+		void rotate(AtomPointerVector & _atoms, const Matrix & _rotMatrix, const CartesianPoint & _rotCenter=CartesianPoint(0.0, 0.0, 0.0));
+		
 		/*****************************************************
 		 *  For the atom std::vector, the align and orient operations 
 		 *  are applied to an external point _reference, and the
@@ -224,22 +183,13 @@ class Transforms {
 	//	void findLinkedAtoms(Atom * _pAtom, const std::map<Atom*, bool> & _excluded, std::map<Atom*, bool> & _list);
 
 		void translateAtom(Atom & _atom, const CartesianPoint & _p);
-		void XtranslateAtom(Atom & _atom, const double & _x);
-		void YtranslateAtom(Atom & _atom, const double & _y);
-		void ZtranslateAtom(Atom & _atom, const double & _z);
-		void rotateAtom(Atom & _atom, const Matrix & _rotMatrix, const CartesianPoint & _rotCenter);
-		void rotateAtom(Atom & _atom, const Matrix & _rotMatrix);
-		//void rotate(Atom & _atom, const Matrix & _rotMatrix);
+		void rotateAtom(Atom & _atom, const Matrix & _rotMatrix, const CartesianPoint & _rotCenter=CartesianPoint(0.0, 0.0, 0.0));
 		bool alignAtom(Atom & _atom, const CartesianPoint & _target, const CartesianPoint & _rotCenter);
 		bool orientAtom(Atom & _atom, const CartesianPoint & _target, const CartesianPoint & _axis1, const CartesianPoint & _axis2);
-		Matrix calcHistoryRotation();
 
 		Quaternion q;
 		
 		Matrix lastRotMatrix;
-		Matrix X180m; // 180 rotation in X
-		Matrix Y180m; //              in Y
-		Matrix Z180m; //              in Z
 		CartesianPoint lastTranslation;
 		double lastRMSD;
 		bool saveHistory_flag;

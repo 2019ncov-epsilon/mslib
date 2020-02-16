@@ -51,8 +51,6 @@ class CharmmEnergy {
 		//double switchingFunction(double _d, double _rOn, double _rOff, double* grad = NULL) const;
 		double switchingFunction(double _d, double _rOn, double _rOff) const;
 		double spring(double _d, double _Kd, double _d0,std::vector<double> *grad=NULL) ;
-		double springStretch(double _d, double _Kd, double _d0); // like spring but works only when _d > _d0
-		double springCompress(double _d, double _Kd, double _d0); // like spring but works only when _d < _d0
 		void springGrad(std::vector<double>& _dd, double _d, double _Kd, double _d0);
 		double coulombEner(double _d, double _q1, double _q2, double _diel, double _rescalingFactor) const; 
 		double coulombEnerGrad(double _d, double K1_q1_q2_rescal_over_diel,bool _Rdep) const;
@@ -105,7 +103,7 @@ class CharmmEnergy {
 
 
 };
-inline double CharmmEnergy::spring(double _d, double _Kd, double _d0,std::vector<double> *_grad){ 
+ inline double CharmmEnergy::spring(double _d, double _Kd, double _d0,std::vector<double> *_grad){ 
 	double diff = _d - _d0;
 
 	if (_grad != NULL){
@@ -118,23 +116,6 @@ inline double CharmmEnergy::spring(double _d, double _Kd, double _d0,std::vector
 
 	return _Kd * (diff*diff);
 }
-inline double CharmmEnergy::springCompress(double _d, double _Kd, double _d0){ 
-	// returns an unfavorable energy only for compressing the spring beyond _d0
-	if (_d < _d0) {
-		return spring(_d, _Kd, _d0);
-	} else {
-		return 0;
-	}
-}
-inline double CharmmEnergy::springStretch(double _d, double _Kd, double _d0){ 
-	// returns an unfavorable energy only for extending the spring beyond _d0
-	if (_d > _d0) {
-		return spring(_d, _Kd, _d0);
-	} else {
-		return 0;
-	}
-}
-
 //inline void CharmmEnergy::setElec14factor(double _e14) {elec14factor = _e14;}
 //inline double CharmmEnergy::getElec14factor() const {return elec14factor;}
 //inline void CharmmEnergy::setDielectricConstant(double _diel) {dielectricConstant = _diel;}

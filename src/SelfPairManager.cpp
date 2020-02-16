@@ -1664,36 +1664,31 @@ void SelfPairManager::runGreedyOptimizer(int _cycles, std::vector< std::vector<b
 		positionOrder.push_back(i);
 	}
 	while(currCycle < _cycles){
-	        //cout << "INSIDE SPM GDOPT OUTER LOOP currCycle = " << currCycle << endl; //<-YUDONG'S CHANGES
+		
 		int convCycle = 0;
 		
 		while (convCycle < conMaxCycles){
-                        //cout << "INSIDE SPM GDOPT INNER LOOP convCycle = " << convCycle << endl; //<-YUDONG'S CHANGES
 			//Assignment of prevState
 			prevState=state;
 		
 			//get a random order of positions
 			random_shuffle(positionOrder.begin(),positionOrder.end());
 			//Actual loop to calculate energy and modify state
-                        //int total_exec_counter = 0; //<- YUDONG'S CHANGES
-                        for (int i=0; i<positionOrder.size(); i++) {
+			for (int i=0; i<positionOrder.size(); i++) {
 				energy = MslTools::doubleMax;
 				double thisEnergy = MslTools::doubleMax;
-                                //int inner_loop_counter = 0; //<- YUDONG'S CHANGES
 				for(int j=0;j<getNumRotamers(positionOrder[i]);j++){
 					//Check if the rotamer has been masked out-- if so, we won't check it
 					if(_mask[positionOrder[i]][j] == 1) {		
-                                                thisEnergy = getInteractionEnergy(positionOrder[i],j,state);
-                                                if ( thisEnergy < energy){
+						thisEnergy = getInteractionEnergy(positionOrder[i],j,state);
+						if ( thisEnergy < energy){
 							energy = thisEnergy;
 							state[positionOrder[i]]=j;
 						}
 					}
-                                        //inner_loop_counter++; total_exec_counter++; //<- YUDONG'S CHANGES
 				}
-                                //cout << "during the " << i << "th execution of the outer loop, the inner loop executed "<< inner_loop_counter << " times\n"; //<- YUDONG'S CHANGES
 			}
-	                //cout << "sum of thoes number is: " << total_exec_counter << endl; //<- YUDONG'S CHANGES
+	
 			//Checking for convergence 
 			bool converge = true;
 			for (int l=0;l<numPositions;l++) {

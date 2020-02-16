@@ -41,7 +41,7 @@ HydrogenBondBuilder::HydrogenBondBuilder() {
 HydrogenBondBuilder::HydrogenBondBuilder(System & _system, string _scwrl4ParameterFile) {
 	setup();
 	pSystem = &_system;
-	fail_flag = readParameters(_scwrl4ParameterFile);
+	readParameters(_scwrl4ParameterFile);
 }
 
 HydrogenBondBuilder::HydrogenBondBuilder( HydrogenBondBuilder & _sysBuild) {
@@ -70,7 +70,6 @@ void HydrogenBondBuilder::reset() {
 	donorAtom.clear();
 	lonePairAngleAtom.clear();
 	lonePairDihedralAtom.clear();
-	fail_flag = false;
 
 	deletePointers();
 	setup();
@@ -86,7 +85,6 @@ void HydrogenBondBuilder::copy( HydrogenBondBuilder & _sysBuild) {
 	donorAtom = _sysBuild.donorAtom;
 	lonePairAngleAtom = _sysBuild.lonePairAngleAtom;
 	lonePairDihedralAtom = _sysBuild.lonePairDihedralAtom;
-	fail_flag = _sysBuild.fail_flag;
 }
 
 void HydrogenBondBuilder::deletePointers() {

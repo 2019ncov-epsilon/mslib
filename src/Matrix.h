@@ -180,16 +180,6 @@ class Matrix {
 #endif
 
 };
-// INLINED FUNCTION
-inline double Matrix::getElement(unsigned int _row, unsigned int _col) const {return matrix[_row][_col];}
-inline std::vector<double> & Matrix::operator[](size_t n) {
-	if (n > rows){
-                std::cerr << "ERROR 1942 Matix::operator[] n is larger than number of rows. n = "<<n<<"; rows = "<<rows<<std::endl;
-		exit(1942);
-	}
-	return matrix[n];
-}
-
 
 }
 

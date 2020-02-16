@@ -109,9 +109,6 @@ class CartesianPoint {
 		void setX(Real _x) {x = _x;};
 		void setY(Real _y) {y = _y;};
 		void setZ(Real _z) {z = _z;};
-		void translateX(Real _x) {x += _x;};
-		void translateY(Real _y) {y += _y;};
-		void translateZ(Real _z) {z += _z;};
 
 		Real* getXptr() {return &x;};
 		Real* getYptr() {return &y;};

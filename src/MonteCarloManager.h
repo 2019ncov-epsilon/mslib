@@ -91,14 +91,12 @@ class MonteCarloManager {
 		//void seed(int _seed);
 		//void getExternalRNG(RandomNumberGenerator * _pExternalRNG);
 
+		double getRandomDouble() const {return -((double)rand() / (double)(RAND_MAX+1.0));};
+		double getRandomDouble(double _max) const {return _max * -((double)rand() / (double)(RAND_MAX+1.0));};
+		double getRandomDouble(double _max, double _min) const {return ((_max-_min) * -((double)rand() / (double)(RAND_MAX+1.0))) + _min;};
 
-		//TODO update these functions to use RandomNumberGenerator object
-		//double getRandomDouble() const {return -((double)rand() / (double)(RAND_MAX+1.0));};
-		//double getRandomDouble(double _max) const {return _max * -((double)rand() / (double)(RAND_MAX+1.0));};
-		//double getRandomDouble(double _max, double _min) const {return ((_max-_min) * -((double)rand() / (double)(RAND_MAX+1.0))) + _min;};
-
-		//int getRandomInt(int _max) const {return (int)(((double)(_max+1) * -((double)rand() / (double)(RAND_MAX+1.0))));};
-		//int getRandomInt(int _max, int _min) const {return (int)(((double)(_max+1-_min) * -((double)rand() / (double)(RAND_MAX+1.0)))) + _min;};
+		int getRandomInt(int _max) const {return (int)(((double)(_max+1) * -((double)rand() / (double)(RAND_MAX+1.0))));};
+		int getRandomInt(int _max, int _min) const {return (int)(((double)(_max+1-_min) * -((double)rand() / (double)(RAND_MAX+1.0)))) + _min;};
 
 		void setConvergencyStop(int convergedSteps, double convergedE);
 		

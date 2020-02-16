@@ -56,9 +56,17 @@ CartesianPoint CartesianGeometry::matrixTransposeTimesCartesianPoint(const Carte
 
 double CartesianGeometry::radiansToDegrees(double _rad) { return _rad * 180 / M_PI; };
 
+double CartesianGeometry::distance(const CartesianPoint & _firstCartesianPoint, const CartesianPoint & _secondCartesianPoint)
+{
+	CartesianPoint difference = _firstCartesianPoint - _secondCartesianPoint;
+	return sqrt(difference * difference);
+}
 
-
-
+double CartesianGeometry::distance2(const CartesianPoint & _firstCartesianPoint, const CartesianPoint & _secondCartesianPoint)
+{
+	CartesianPoint difference = _firstCartesianPoint - _secondCartesianPoint;
+	return difference * difference;
+}
 
 double CartesianGeometry::distanceNumericalDerivative(const CartesianPoint & _firstCartesianPoint, const CartesianPoint & _secondCartesianPoint, vector<double>* _partialDerivatives, const double _deltaSize)
 {

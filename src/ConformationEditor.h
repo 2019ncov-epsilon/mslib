@@ -65,7 +65,7 @@ class ConformationEditor {
 		// this one takes the atom pointers
 		bool editIC(vector<Atom*> _pAtoms, double _value);
 
-		bool applyConformation(bool _onlyFromActive = false);
+		bool applyConformation();
 
 	private:
 
@@ -79,10 +79,10 @@ class ConformationEditor {
 		void defineDegreesOfFreedom();
 };
 
-inline bool ConformationEditor::applyConformation(bool _onlyFromActive) {
+inline bool ConformationEditor::applyConformation() {
 	bool out = true;
 	for (set<Atom*>::iterator k=buildAtoms.begin(); k!=buildAtoms.end(); k++) {
-		if (!(*k)->buildFromIc(_onlyFromActive)) {
+		if (!(*k)->buildFromIc()) {
 			cerr << "WARNING 34823: failed building " << **k << endl;
 			out = false;
 		}
